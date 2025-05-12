@@ -112,74 +112,34 @@
             <!--==============================
 		Related Product  
 		==============================-->
-            <div class="space-extra-top mb-30">
-                <div class="row justify-content-between align-items-center">
-                    <div class="col-md-auto">
-                        <h2 class="sec-title text-center">Related Products</h2>
-                    </div>
-                    <div class="col-md d-none d-sm-block">
-                        <hr class="title-line">
-                    </div>
-                    <div class="col-md-auto d-none d-md-block">
-                        <div class="sec-btn">
-                            <div class="icon-box">
-                                <button data-slider-prev="#productSlider1" class="slider-arrow default"><i class="far fa-arrow-left"></i></button>
-                                <button data-slider-next="#productSlider1" class="slider-arrow default"><i class="far fa-arrow-right"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper th-slider has-shadow" id="productSlider1" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"2"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"3"},"1200":{"slidesPerView":"4"}}}'>
-                    <div class="swiper-wrapper">
-                        @foreach ($products as $oneproduct)
+            <div class="row gy-40 filter-active">
+                @foreach($prosthetic_products as $prosthetic_product)
+                    <div class="col-xl-3 col-lg-4 col-sm-6 filter-item cat{{ $prosthetic_product->subcategory_id }}">
+                    <div class="th-product product-grid">
+                    <div class="product-img"  style="background-image: url('{{ asset('user/assets/img/bg_product.png') }}');background-size: cover;background-repeat: no-repeat;">
+                                <img src="{{ asset( $prosthetic_product->image) }}" alt="{{ $prosthetic_product->{"name_$lang"} }}">
                             
-                        <div class="swiper-slide">
-                            <div class="th-product product-grid">
-                                <div class="product-img">
-                                    <img src="{{asset($oneproduct->image)}}" alt="Product Image">
-                                    <div class="actions">
-                                        <a href="#QuickView" class="icon-btn popup-content"><i class="far fa-eye"></i></a>
-                                        <a href="cart.html" class="icon-btn"><i class="far fa-cart-plus"></i></a>
-                                        <a href="wishlist.html" class="icon-btn"><i class="far fa-heart"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <a href="shop-details.html" class="product-category">{{ $oneproduct->subcategory ? $oneproduct->subcategory->{'name_' . app()->getLocale()} : '-' }}</a>
-                                    <h3 class="product-title"><a href="shop-details.html">{{ $oneproduct->ref }}</a></h3>
-                                    <span class="price">
-                                        
-                                    @foreach ($countries as $country)
-                                                        @php
-                                                            $price = $oneproduct->prices->where('country_id', $country->id)->first();
-                                                        @endphp
-                                                            <li style="color: {{ $price ? 'green' : 'red' }};">
-                                                                {{$country->name}} : 
-                                                            {{ $price ? $price->price . ' ' . $price->currency : 'N/A' }}
-                                                            @if(isset($currencyDifferences[$country->currency]) && $currencyDifferences[$country->currency] !== null)
-                                                            <br>
-                                                               <span style="color:#0befc2;">{{ __('pages.every 1 eur aqual =') }} {{ number_format($currencyDifferences[$country->currency], 4) }}</span>
-                                                            @else
-                                                                N/A
-                                                            @endif
-
-                                                            </li>
-                                                      @endforeach
-                                    </span>
+                                <div class="actions">
+                                    <a href="#QuickView" class="icon-btn popup-content"><i class="far fa-eye"></i></a>
+                                    <a href="javascript:void(0);" class="icon-btn add-to-cart" data-id="{{ $prosthetic_product->id }}">
+                                        <i class="far fa-cart-plus"></i>
+                                    </a>
+                                    <a href="" class="icon-btn"><i class="far fa-heart"></i></a>
                                 </div>
                             </div>
+                            <div class="product-content">
+                                {{-- <a href="" class="product-category">
+                                    {{ $prosthetic_product->subcategory->{"name_$lang"} }}
+                                </a> --}}
+                                <h3 class="product-title">
+                                    <a href="">{{ $prosthetic_product->ref }}</a>
+                                </h3>
+
+
+                            </div>
                         </div>
-
-                        @endforeach
-
-
                     </div>
-                </div>
-                <div class="d-block d-md-none mt-40 text-center">
-                    <div class="icon-box">
-                        <button data-slider-prev="#productSlider1" class="slider-arrow default"><i class="far fa-arrow-left"></i></button>
-                        <button data-slider-next="#productSlider1" class="slider-arrow default"><i class="far fa-arrow-right"></i></button>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
