@@ -73,7 +73,7 @@
                 <div class="form-group mb-3 row">
                     <label class="col-md-2 col-form-label">{{ __('pages.height') }}</label>
                     <div class="col-md-10">
-                        <input type="number" class="form-control" name="height">
+                        <input type="double" class="form-control" name="height">
                     </div>
                 </div>
 
